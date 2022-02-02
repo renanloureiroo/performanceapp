@@ -1,15 +1,34 @@
-import React, { useState } from "react"
-import { Button, StyleSheet, Text, TextInput, View } from "react-native"
+import React, { useEffect, useState } from "react"
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native"
 import { FriendList } from "../components/FriendList"
+
+import api from "../api/api"
+
+interface Friends {
+  id: string
+  name: string
+  likes: number
+}
 
 export const Home = () => {
   const [name, setName] = useState("")
+  const [data, setData] = useState<Friends[]>([])
 
-  function handleSearch() {}
+  async function handleSearch() {
+    const { data } = await api.get(`/friends?q=${name}`)
+    setData(data)
+  }
 
   return (
     <View style={styles.container}>
-      <Text>Amigos</Text>
+      <Text style={styles.title}>Amigos</Text>
       <TextInput
         style={styles.input}
         placeholder="Nome do cliente"
@@ -17,8 +36,9 @@ export const Home = () => {
       />
 
       <Button title="Buscar" onPress={handleSearch} />
-
-      <FriendList data={[]} />
+      <ScrollView style={styles.list} showsVerticalScrollIndicator={false}>
+        <FriendList data={data} />
+      </ScrollView>
     </View>
   )
 }
@@ -29,10 +49,17 @@ const styles = StyleSheet.create({
     marginTop: 100,
     padding: 25,
   },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
 
   input: {
     borderWidth: 1,
     padding: 7,
-    marginBottom: 10,
+    marginVertical: 10,
+  },
+  list: {
+    marginTop: 20,
   },
 })

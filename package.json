@@ -10,6 +10,7 @@
     "server": "json-server -d 750 -w -H 192.168.0.104 -p 3333 ./src/api/server.js"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "expo": "~44.0.2",
     "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
