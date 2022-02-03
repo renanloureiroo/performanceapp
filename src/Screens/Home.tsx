@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import {
   Button,
   ScrollView,
@@ -25,6 +25,9 @@ export const Home = () => {
     const { data } = await api.get(`/friends?q=${name}`)
     setData(data)
   }
+  const handleFollow = useCallback(() => {
+    console.log("Follow user")
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -37,7 +40,7 @@ export const Home = () => {
 
       <Button title="Buscar" onPress={handleSearch} />
       <ScrollView style={styles.list} showsVerticalScrollIndicator={false}>
-        <FriendList data={data} />
+        <FriendList follow={handleFollow} data={data} />
       </ScrollView>
     </View>
   )
