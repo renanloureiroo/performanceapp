@@ -39,9 +39,8 @@ export const Home = () => {
       />
 
       <Button title="Buscar" onPress={handleSearch} />
-      <ScrollView style={styles.list} showsVerticalScrollIndicator={false}>
-        <FriendList follow={handleFollow} data={data} />
-      </ScrollView>
+
+      <FriendList follow={handleFollow} data={data} />
     </View>
   )
 }
